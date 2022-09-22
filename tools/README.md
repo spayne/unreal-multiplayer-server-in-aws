@@ -1,0 +1,1 @@
+* [aws_backend.py](aws_backend.py) is a boto3 script that can quickly create and delete down AWS builds, fleets, user_pools, lambdas and rest_apis to setup the backend. How to use it is covered in the instructions below. 
