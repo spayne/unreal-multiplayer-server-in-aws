@@ -1,4 +1,9 @@
-## AWS Backend Setup
+We want to:
+* upload our server build to AWS, 
+* configure a fleet for it and 
+* configure user pool, lambdas and rest_api to handle the login and session management
+
+## Steps
 1. Using the IAM Management Console, to create a profile to give to the aws_backend.py script.  
    ```
    {
