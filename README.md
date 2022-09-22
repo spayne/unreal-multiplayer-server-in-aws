@@ -4,7 +4,7 @@ This project provides [instructions](#instructions), supporting [tools](tools) a
 
 **Tested Configuration:** Unreal Engine 5.0.3 and GameLift Server SDK Release 4.0.2.
 
-The design and steps are based on the AWS video series [Building Games on AWS: Amazon GameLift & UE4](https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2). This project adds written instructions and a boto3 tool to automate the AWS configuration - so is easier to iterate on.  Episode notes and bookmarks for the video series are on the [Video Series Notes](doc/series_notes.md) page.
+The design and steps are based on the AWS video series [Building Games on AWS: Amazon GameLift & UE4](https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2). This project adds written instructions and a boto3 tool to automate the AWS configuration - so is easier to iterate on.  Episode notes and bookmarks for the video series are on the [Video Series Notes](doc/video_series_notes.md) page.
 
 The intended audience is Unreal Engine developers who are just getting started, have looked at the SDK documentation and reviewed video series above and are wanting to add AWS GameLift into their project.
 
