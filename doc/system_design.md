@@ -1,5 +1,8 @@
-# System Design
+The system we are building is shown in the diagram below.  
+
+On the left are the components that run on your development PC and on the right are the components you will run in the cloud:
 ![System View](/images/system_view.png)
+
 
 The system includes:
 * **UE5 Game Client** with an online map, an offline map and a special offline game mode.  The offline map and game mode logs in and starts a game session using https requests to get the server ip and port from the AWS stack.
