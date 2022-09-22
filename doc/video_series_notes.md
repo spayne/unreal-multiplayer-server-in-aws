@@ -1,6 +1,6 @@
-# Series Notes
+# Video Series Notes
 
-This project is based on the Amazon's series [Building Games on AWS: Amazon GameLift & UE4](https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2).  In this series Dylan, Chanh and Zack go step-by-step to build up this system from scratch.  
+This project is based on the Amazon's video series [Building Games on AWS: Amazon GameLift & UE4](https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2).  In this series Dylan, Chanh and Zack go step-by-step to build up this system from scratch.  
 
 ## Episode Notes
 * Episode 1: Discuss the architecture of the system.[^aws_gamelift_episode_1]
