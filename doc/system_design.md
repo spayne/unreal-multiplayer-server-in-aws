@@ -12,4 +12,4 @@ The system includes:
    * A fleet running that build (default: one on-demand c.5 instance)
 * **boto3 script** to create and delete the AWS setup above.
 
-This system is based on Amazon's series [Building Games on AWS: Amazon GameLift & UE4](https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2).  Differences are captured here: [series_notes.md](series_notes.md).
+This system is based on Amazon's series [Building Games on AWS: Amazon GameLift & UE4](https://www.youtube.com/playlist?list=PLuGWzrvNze7LEn4db8h3Jl325-asqqgP2).  Differences are captured here: [video_series_notes.md](video_series_notes.md).
