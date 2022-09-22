@@ -42,28 +42,28 @@
    1. Using the aws_setup command line you configured above add the command 'create build'.  e.g.
    2. ```aws_setup.py --prefix=potato --build_root=E:\unreal_projects\ue5_gamelift_plugin_test\MyProject\ServerBuild\WindowsServer -- fleet_launch_path=C:/game/MyProject/Binaries/Win64/MyProjectServer.exe --profile=dave --region=us-west-2``` **create build**
    3. Use the gamelift dashboard to verify your build has been uploaded
-      ![build uploaded](images/build_uploaded.png)
+      ![build uploaded](../images/build_uploaded.png)
 
 4. **Start your fleet**
    1. Using the aws_setup command line from above but this time use **create fleet**
    2. Use the gamelift dashboard to verify your fleet was created:
-      ![fleet created](images/fleet_created.png)
+      ![fleet created](../images/fleet_created.png)
    3. If you see the error "botocore.errorfactory.LimitExceededException: An error occurred (LimitExceededException) when calling the CreateFleet operation: Current limit of fleets of 1 have been reached.", try specifying a different ec2 instance type. e.g.
       ```--fleet_ec2_instance_type=c5a.large```
 
 5. **Initialize the User Pool**
    1. Using the aws_setup command line from above but this time use **create user_pool**
    2. Use the Amazon Cognito dashboard to verify your user pool was created:
-     ![user pool created](images/user_pool_created.png)
+     ![user pool created](../images/user_pool_created.png)
      
 6. **Install Lambdas**
    1. Using the aws_setup command line from above but this time use **create user_pool**
    2. Use the Lambda dashboard to verify they were created
-      ![lambdas created](images/lambdas_created.png)
+      ![lambdas created](../images/lambdas_created.png)
    
 7. **Install Rest API**
    1. Using the aws_setup command line from above but this time use **create rest_api**
    2. The output will provide you with the invoke_url and instructions on how to test it using curl:
-      ![curl_to_test_rest](images/curl_to_test_rest.png)
+      ![curl_to_test_rest](../images/curl_to_test_rest.png)
    3. Make note of this invoke_url
    4. At this point the backend is all ready to go.
