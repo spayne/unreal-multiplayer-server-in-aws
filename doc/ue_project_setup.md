@@ -1,4 +1,8 @@
-## UE Project Setup
+We want our UE project to support:
+* **Client Targets** to make https requests to the server to login and start the session
+* **Server Targets** to be installable by and connect to GameLift on statup
+
+## Steps:
 1. **Add the GameLiftServerSDK Plugin.** For your game server to be able to talk to the GameLift servers it needs to link agains the GameLiftServerSDK that is packaged in the plugin: 
    1. Copy the GameLiftServerSDK folder from this repo to the Plugins folder of your game project.
    2. Reopen your project in the Unreal Editor and enable the "GameLiftServerSDK" in the Plugins.
