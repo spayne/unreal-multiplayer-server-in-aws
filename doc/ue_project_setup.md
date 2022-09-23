@@ -4,7 +4,7 @@ The following steps will show you how to get your UE project such that:
 
 Note that since the initial steps require project level changes, you will be needing to restart the Unreal Editor a few times.
 
-**Troubleshooting** If you see an error message about CDO constructors this may be because your project is not based on the Third Person Template.  You can either fix the dependency in the C++ or you could import the Third Person Template into your project.  To import the Third Person Template, right click in the Content Browser and choose "Add Feature or Content Pack...", select Third Person and press "Add to Project"
+**Troubleshooting** If you see an error message when loading your project in Unreal Editor about CDO Constructors failing to find the ThirdPersonCharacter, this may be because your project is not based on the Third Person Template.  You can either fix the dependency in the C++ game modes or you could import the Third Person Template into your project.  To import the Third Person Template, (press OK on the error messsage dialog), right click in the Content Browser and choose "Add Feature or Content Pack...", select Third Person and press "Add to Project"
 
 ## Steps:
 1. **Add the GameLiftServerSDK Plugin.** For your game server to be able to talk to the GameLift servers it needs to link against the GameLiftServerSDK that is packaged in the plugin: 
