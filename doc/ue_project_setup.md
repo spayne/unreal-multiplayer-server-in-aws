@@ -73,12 +73,11 @@ Note that since the initial steps require project level changes, you will be nee
       **Troubleshooting**: Note that you must be using an engine that was built from source to do a server build.  So if the Unreal Engine you are using was downloaded from the Epic Launcher this will not work.  Build an engine from source, then right click on your [ProjectName].uproject and choose the source build of Unreal Engine.
       ![select_unreal_engine_built_from_source](/images/select_unreal_engine_built_from_source.png)
       
-   6. Create a shortcut to the built Server to include a -log on the command line
-   7. 
-   8. Duplicate that shorcut to create one called called NoGameLift with -log and -NoGameLift on the command line
-   9. Use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
+   6. Assuming you now have a successful build, open the ServerBuild/WindowsServer directory to create a shortcut to the built Server to include a -log on the command line
+   7. Duplicate that shorcut to create a second shortcut and name it NoGameLift.  Specify with -log and -NoGameLift for it's the command line
+   8. Because we don't have the backend setup yet, use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
       ![Listening](/images/dedicated_server_is_listening.png)
-   7. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.
+   9. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.
 
 5. **Add Main Menu to the Offline Map**
    1. Create an empty widget blueprint called WBP_OfflineMainMenu.  
