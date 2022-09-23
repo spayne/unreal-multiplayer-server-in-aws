@@ -39,13 +39,14 @@ Note that since the initial steps require project level changes, you will be nee
       ![new server target](/images/new_server_target.png)
 
 4. **Add Maps and Modes and MainMenuWidget to your project:**
-   1. In Unreal Editor, duplicate (ctrl-d) the ThirdPersonMap twice to create an OfflineMap and OnlineMap
+   1. In Unreal Editor, navigate to the Maps folder in the Content Browser and duplicate (ctrl-d) the ThirdPersonMap twice to create an OfflineMap and OnlineMap
    2. In the Offline Map - make it obvious you are in the Offline Map:
       * Select and Delete all the Static Mesh Actors in the "Block00" folders
       * Duplicate the TextRenderActor
          * position it so it is visible in the scene from the player camera
          * set the text value to "Offline Map"
-   3. In Project Settings|Maps and Modes, set the values to:
+   3. (optional) In the Online Map you can modify it if you like.
+   4. In Project Settings|Maps and Modes, set the values to:
    
       | Setting | Value |
       | --- | --- |
@@ -55,7 +56,7 @@ Note that since the initial steps require project level changes, you will be nee
       | Game Default Map | OfflineMap |
       | Server Default Map | OnlineMap |
       
-   4. In Project Settings|Packaging|Advanced, add to the List of maps to include in a packaged build
+   5. In Project Settings|Packaging|Advanced, add to the List of maps to include in a packaged build
       | Setting | Value |
       | --- | --- |
       | Index[0] | OfflineMap |
