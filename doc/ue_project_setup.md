@@ -12,14 +12,14 @@ We want our UE project to support:
 
 2. **Add Game Modes and Widget C++ classes.**  Your game needs to be able to support the different logic when offline vs online.  To do this we add a couple game modes and a widget:
    1. Exit Unreal Editor
-   2. Copy the OfflineMainMenuWidget, OfflineGameMode and GameModeWithGameLift sources to your game project folder
-   3. Add  "GameLiftServerSDK", "Http", "Json", "JsonUtilities" to your project's Build.cs file.  E.g. 
+   2. Copy the the contents of the SkeletonProject/Source/SkeletonProject to your [ProjectName]/Source/[ProjectName] folder.  You should now have  OfflineMainMenuWidget, OfflineGameMode and GameModeWithGameLift sources at the same level as your [ProjectName].Build.cs file.
+   3. Open your [ProjectName].Build.cs file and add "UMG" "GameLiftServerSDK", "Http", "Json", "JsonUtilities" to your PublicDependencyNames.  E.g. 
        ```C#
        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", 
        "HeadMountedDisplay", "UMG", "GameLiftServerSDK","HTTP", "Json", "JsonUtilities"});
        ```
-   4. Right click on your uproject and Generate Visual Studio project files
-   5. In Visual Studio clean and build the Development Editor | Win64 target
+   4. Right click on your [ProjectName].uproject and select Generate Visual Studio project files
+   5. In Visual Studio, rebuild the Development Editor | Win64 target for your game. It should build without error.
  
 3. **Add Server Target: [^ue_setup_dedicated_server]:**
    1. In Visual Studio, Select the Source/[ProjectName].Target.cs.  Right click on the tab and Open Containing Folder.
