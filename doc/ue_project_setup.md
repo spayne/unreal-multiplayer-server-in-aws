@@ -79,6 +79,7 @@ Note that since the initial steps require project level changes, you will be nee
    9. Because we don't have the backend setup yet, use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
       ![Listening](/images/dedicated_server_is_listening.png)
    9. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.
+         **Troubleshooting**: If the map doesn't change, try pressing the carriage return in the server log in case it is in scrolled suspend.
 
 5. **Add Main Menu to the Offline Map**
    1. Create an empty widget blueprint called WBP_OfflineMainMenu.  
