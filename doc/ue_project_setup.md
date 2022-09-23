@@ -56,20 +56,23 @@ Note that since the initial steps require project level changes, you will be nee
       | Game Default Map | OfflineMap |
       | Server Default Map | OnlineMap |
       
-   5. In Project Settings|Packaging|Advanced, add to the List of maps to include in a packaged build
+   5. In Project Settings|Packaging|Advanced, use the '...' to add  the List of maps to include in a packaged build
       | Setting | Value |
       | --- | --- |
       | Index[0] | OfflineMap |
       | Index[1] | OnlineMap |
+      
+      **Troubleshooting**: If you see an error about paths being too long, check that Windows Explorer is showing and you are choosing maps from your project directory.
 
 4. **Build the Server Image**
-   1. In Unreal Editor, choose Platforms/Windows and check that the Build Target is the Server
-   2. Then choose Platforms/Windows/Package Project to package into a ServerBuild directory
-   3. Create a shortcut to the built Server to include a -log on the command line
-   4. Duplicate that shorcut to create one called called NoGameLift with -log and -NoGameLift on the command line
-   5. Use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
+   1. Copy the ServerBuild folder from assets/SkeletonProject to your project folder
+   2. In Unreal Editor, choose Platforms/Windows and check that the Build Target is the Server
+   3. Then choose Platforms/Windows/Package Project to package into a ServerBuild directory
+   4. Create a shortcut to the built Server to include a -log on the command line
+   5. Duplicate that shorcut to create one called called NoGameLift with -log and -NoGameLift on the command line
+   6. Use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
       ![Listening](/images/dedicated_server_is_listening.png)
-   6. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.
+   7. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.
 
 5. **Add Main Menu to the Offline Map**
    1. Create an empty widget blueprint called WBP_OfflineMainMenu.  
