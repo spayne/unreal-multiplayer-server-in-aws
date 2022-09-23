@@ -88,7 +88,7 @@ Note that since the initial steps require project level changes, you will be nee
    2. In the Offline Map, edit the level blueprint to add two nodes onto BeginPlay to create this new widget and add it to the viewport:
       ![Add Widget to Viewport](/images/create_menu_and_add_to_viewport.png)
    3. Create a Hierarchy with Canvas Panel; VerticalBox; TextBlock; UsernameEditableText; TextBlock; GameLiftLoginButton; LocalLoginButton
-   4. Set the Vertical Box anchor point to the bottom right and set Position X to -250 and Position Y to -250
+   4. Set the Vertical Box anchor point to the bottom right.
    5. Update the labels to read Username, Password.  Add Text children to the buttons to read "Login To GameLift" and "Login to Localhost"
    6. Tweak layout
       | Setting | Value |
@@ -96,9 +96,10 @@ Note that since the initial steps require project level changes, you will be nee
       |Vertical Box Position| -320, -360
       |Vertical Box Size|300
       |Font Size|24
-      |Add 20 top and bottom padding to text input fields|
+      |Add 10 top and bottom padding to text input and buttons|
       |Username|user0|
       |Password|pass12|
+      **Troubleshooting** If the text in the EditableText is too small, try pressing the Compile button.
    7. Add an On Clicked Event to the Login to GameLift button.  In the event graph read from editable text to Set "User" and Set "Pass" and then execute OnLoginClicked:
       ![On Login to GameLift clicked](/images/on_clicked_game_lift_login.png)
    8. Add an On Clicked Event to the Login to Localhost button and connect it to an "open" console command:
