@@ -133,7 +133,7 @@ def create_build(build_config):
 
 
 def create_fleet(build_config):
-    log_info(f"creating fleet")
+    log_info("creating fleet")
     build_id = lookup_build_id(build_config["build_name"])
 
     if build_id:
@@ -570,6 +570,7 @@ def create_rest_api(build_config):
     except ClientError:
         logger.exception("Couldn't deploy REST API %s.", rest_api_id)
         raise
+    log_info(f"create_deployment_resp {create_deployment_resp}")
 
     invoke_url = f'https://{rest_api_id}.execute-api.{build_config["region"]}.amazonaws.com/{build_config["rest_api_stage_name"]}'
     log_info('invoke_url: ' + invoke_url)
@@ -670,7 +671,7 @@ def create_user_pool(build_config):
     log_info("creating test users")
     for index in range(32):
         user_name = 'user' + str(index)
-        create_user_response = cognitoidp_client.admin_create_user(
+        cognitoidp_client.admin_create_user(
             UserPoolId=user_pool_id,
             Username=user_name,
             UserAttributes=[
@@ -679,12 +680,13 @@ def create_user_pool(build_config):
             TemporaryPassword="test12",
             MessageAction='SUPPRESS'
         )
-        set_user_password_response = cognitoidp_client.admin_set_user_password(
+        cognitoidp_client.admin_set_user_password(
             UserPoolId=user_pool_id,
             Username=user_name,
             Password="test12",
             Permanent=True
         )
+
 
 def delete_build(build_config):
     build_id = lookup_build_id(build_config["build_name"])
@@ -900,7 +902,7 @@ def parse_args():
     # walk through the build config and replace [prefix] with the prefix
     # these final configuration parameters are what is used as the resource
     # names during creation and deletion.
-    log_info(f"Configuration:")
+    log_info("Configuration:")
     prefix = build_config["prefix"]
     for key, value in build_config.items():
         if type(value) == str:
