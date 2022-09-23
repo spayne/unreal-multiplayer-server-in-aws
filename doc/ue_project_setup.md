@@ -99,6 +99,7 @@ Note that since the initial steps require project level changes, you will be nee
       |Add 10 top and bottom padding to text input and buttons|
       |Username|user0|
       |Password|pass12|
+      
       **Troubleshooting** If the text in the EditableText is too small, try pressing the Compile button.
    7. Add an On Clicked Event to the Login to GameLift button.  In the event graph read from editable text to Set "User" and Set "Pass" and then execute OnLoginClicked:
       ![On Login to GameLift clicked](/images/on_clicked_game_lift_login.png)
