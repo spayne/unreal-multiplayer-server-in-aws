@@ -2,7 +2,6 @@
 
 
 #include "OfflineGameMode.h"
-#include "MyProjectCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AOfflineGameMode::AOfflineGameMode()
