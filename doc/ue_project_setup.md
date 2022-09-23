@@ -67,10 +67,15 @@ Note that since the initial steps require project level changes, you will be nee
 4. **Build the Server Image**
    1. Copy the ServerBuild folder from assets/SkeletonProject to your project folder
    2. In Unreal Editor, choose Platforms/Windows and check that the Build Target is the Server
-   3. Then choose Platforms/Windows/Package Project to package into a ServerBuild directory
-   4. Create a shortcut to the built Server to include a -log on the command line
-   5. Duplicate that shorcut to create one called called NoGameLift with -log and -NoGameLift on the command line
-   6. Use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
+   3. Then choose Platforms/Windows/Package Project.  In the dialog that pops up, choose the ServerBuild directory.
+   4. Check the log to verify the build was successful.
+      **Troubleshooting**: Note that you must be using an engine that was built from source to do a server build.  So if the Unreal Engine you are using was downloaded from the Epic Launcher this will not work.  Build an engine from source, then right click on your [ProjectName].uproject and choose the source build of Unreal Engine.
+      ![select_unreal_engine_built_from_source](/images/select_unreal_engine_built_from_source.png)
+      
+   6. Create a shortcut to the built Server to include a -log on the command line
+   7. 
+   8. Duplicate that shorcut to create one called called NoGameLift with -log and -NoGameLift on the command line
+   9. Use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
       ![Listening](/images/dedicated_server_is_listening.png)
    7. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.
 
