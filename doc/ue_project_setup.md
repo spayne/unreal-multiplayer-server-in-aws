@@ -69,6 +69,7 @@ Note that since the initial steps require project level changes, you will be nee
    2. In Unreal Editor, choose Platforms/Windows and check that the Build Target is the Server
    3. Then choose Platforms/Windows/Package Project.  In the dialog that pops up, choose the ServerBuild directory.
    4. Check the log to verify the build was successful.
+
       **Troubleshooting**: Note that you must be using an engine that was built from source to do a server build.  So if the Unreal Engine you are using was downloaded from the Epic Launcher this will not work.  Build an engine from source, then right click on your [ProjectName].uproject and choose the source build of Unreal Engine.
       ![select_unreal_engine_built_from_source](/images/select_unreal_engine_built_from_source.png)
       
