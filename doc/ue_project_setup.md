@@ -63,7 +63,7 @@ We want our UE project to support:
    3. Create a shortcut to the built Server to include a -log on the command line
    4. Duplicate that shorcut to create one called called NoGameLift with -log and -NoGameLift on the command line
    5. Use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
-      ![Listening](images/dedicated_server_is_listening.png)
+      ![Listening](/images/dedicated_server_is_listening.png)
    6. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.
 
 5. **Add Main Menu to the Offline Map**
@@ -84,11 +84,11 @@ We want our UE project to support:
       |Username|user0|
       |Password|pass12|
    7. Add an On Clicked Event to the Login to GameLift button.  In the event graph read from editable text to Set "User" and Set "Pass" and then execute OnLoginClicked:
-      ![On Login to GameLift clicked](images/on_clicked_game_lift_login.png)
+      ![On Login to GameLift clicked](/images/on_clicked_game_lift_login.png)
    8. Add an On Clicked Event to the Login to Localhost button and connect it to an "open" console command:
-      ![On Login to localhost clicked](images/on_clicked_localhost_login.png)
+      ![On Login to localhost clicked](/images/on_clicked_localhost_login.png)
    9. In the BP_FirstPersonCharacter set the input mode to Game And UI.  This is to make testing multiple instances easier:
-      ![input mode](images/bp_third_person_character_input_mode.png)
+      ![input mode](/images/bp_third_person_character_input_mode.png)
    
 
 6. **Test the UE setup**
