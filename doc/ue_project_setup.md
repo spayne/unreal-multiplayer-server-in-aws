@@ -29,8 +29,10 @@ We want our UE project to support:
        * change the name of the class to match the name of the new file. i.e.:
       
          ![Create Server Target.cs](/images/create_server_target_cs.png)
-   3. Right click on your uproject and Generate Visual Studio project files
-   4. In Visual Studio build the Development Server | Win64 target
+   3. Right click on your [ProjectName].uproject and select Generate Visual Studio project files
+   4. In Visual Studio build and run the Development Server | Win64 target
+   5. Check that when you open Platforms/Windows/Build Target you can now see the new server target:
+      ![new server target](/images/new_server_target.png)
 
 4. **Add Maps and Modes and MainMenuWidget to your project:**
    1. In Unreal Editor, duplicate (ctrl-d) the ThirdPersonMap twice to create an OfflineMap and OnlineMap
