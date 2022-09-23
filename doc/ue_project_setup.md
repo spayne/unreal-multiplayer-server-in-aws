@@ -74,10 +74,14 @@ Note that since the initial steps require project level changes, you will be nee
       ![select_unreal_engine_built_from_source](/images/select_unreal_engine_built_from_source.png)
       
    6. Assuming you now have a successful build, open the ServerBuild/WindowsServer directory to create a shortcut to the built Server to include a -log on the command line
-   7. Duplicate that shorcut to create a second shortcut and name it NoGameLift.  Specify with -log and -NoGameLift for it's the command line
-   8. Because we don't have the backend setup yet, use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
+   7. Duplicate that shorcut to create a second shortcut and name it NoGameLift.  In it's Properties specify -log and -NoGameLift for it's the Target.  So you should have the following kind of setup in your WindowsServer directory:
+     ![shortcuts](/images/windows_server_directory_with_shortcuts.png)
+   9. Because we don't have the backend setup yet, use the NoGameLift shortcut to start the server and confirm that you see that it is listening on a port.   e.g.
       ![Listening](/images/dedicated_server_is_listening.png)
-   9. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.
+   10. Start a client in Unreal Editor and use the ~, open 127.0.0.1 command.  Verify that the map in the client view changes from the Offline map to the Online map.  In the server window you should see something like this for the join:
+      ![Normal Join Log](/images/normal_join_log.png)
+  
+         **Troubleshooting**: If the map doesn't change, try pressing the carriage return in the server log in case it is in scrolled suspend.
 
 5. **Add Main Menu to the Offline Map**
    1. Create an empty widget blueprint called WBP_OfflineMainMenu.  
