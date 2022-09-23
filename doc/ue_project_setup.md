@@ -22,14 +22,17 @@ We want our UE project to support:
    5. In Visual Studio clean and build the Development Editor | Win64 target
  
 3. **Add Server Target: [^ue_setup_dedicated_server]:**
-   1. Duplicate the [ProjectName]Target.cs file to create a [ProjectName]ServerTarget.cs
-   2. Inside [ProjectName]ServerTarget.cs
+   1. In Visual Studio, Select the Source/[ProjectName].Target.cs.  Right click on the tab and Open Containing Folder.
+   2. Using Windows Explorer, duplicate the [ProjectName].Target.cs file and rename it to [ProjectName]Server.Target.cs
+   3. Using a text editor (don't try regenerating until the next step), edit the [ProjectName].ServerTarget.cs:
        * change the Type from TargetType.Game to TargetType.Server 
        * change the name of the class to match the name of the new file. i.e.:
       
          ![Create Server Target.cs](/images/create_server_target_cs.png)
-   3. Right click on your uproject and Generate Visual Studio project files
-   4. In Visual Studio build the Development Server | Win64 target
+   3. Right click on your [ProjectName].uproject and select Generate Visual Studio project files
+   4. In Visual Studio build and run the Development Server | Win64 target
+   5. Check that when you open Platforms/Windows/Build Target you can now see the new server target:
+      ![new server target](/images/new_server_target.png)
 
 4. **Add Maps and Modes and MainMenuWidget to your project:**
    1. In Unreal Editor, duplicate (ctrl-d) the ThirdPersonMap twice to create an OfflineMap and OnlineMap
@@ -98,3 +101,15 @@ We want our UE project to support:
    1. create an install.bat from these sources to your server build folder:
       * ```Engine\Extras\Redist\en-us\UEPrereqSetup_x64.exe /install/quiet/norestart /log c:\game\UEPrereqSetup.log```
    2. That's it.   Because we aren't using the S3 method to upload, this doesn't need to be put into a .zip file
+
+
+[^ue_server_req]: https://docs.unrealengine.com/5.0/en-US/setting-up-dedicated-servers-in-unreal-engine/#1.requiredsetup
+[^ue_setup_dedicated_server]: [Unreal Engine 5.0 Documentation: Setting Up Dedicated Servers](https://docs.unrealengine.com/5.0/en-US/setting-up-dedicated-servers-in-unreal-engine/)
+[^aws_gamelift_episode_1]: [Amazon GameLift-UE4 Episode 1: Intro and Architecture Review](https://youtu.be/3_iBuko39JA)
+[^aws_gamelift_episode_2]: [Amazon GameLift-UE4 Episode 2: UE4 Dedicated Server](https://youtu.be/cUcTJjqSCos)
+[^aws_gamelift_episode_3]: [Amazon GameLift-UE4 Episode 3: Integrate GameLiftServer SDK with UE4](https://youtu.be/Sl_i6YIgQqg)
+[^aws_gamelift_episode_4]: [Amazon GameLift-UE4 Episode 4: Testing and Uploading Server Build to GameLift](https://youtu.be/Q6kOpObWsUI)
+[^aws_gamelift_episode_5]: [Amazon GameLift-UE4 Episode 5: StartGameLiftSession](https://youtu.be/\_EynplPECNk)
+[^aws_gamelift_episode_6]: [Amazon GameLift-UE4 Episode 6: Amazon Cognito and API Gateway](https://youtu.be/EfIuC5-wdeo)
+[^aws_gamelift_episode_7]: [Amazon GameLift-UE4 Episode 7: API Requests from the Game Client](https://youtu.be/lhABExDSpHE)
+[^aws_gamelift_episode_8]: [Amazon GameLift-UE4 Episode 8: Next Steps](https://youtu.be/lwYFZFYvSgE)
