@@ -22,8 +22,9 @@ We want our UE project to support:
    5. In Visual Studio clean and build the Development Editor | Win64 target
  
 3. **Add Server Target: [^ue_setup_dedicated_server]:**
-   1. Duplicate the [ProjectName]Target.cs file to create a [ProjectName]ServerTarget.cs
-   2. Inside [ProjectName]ServerTarget.cs
+   1. In Visual Studio, Select the Source/[ProjectName].Target.cs.  Right click on the tab and Open Containing Folder.
+   2. Using Windows Explorer, duplicate the [ProjectName].Target.cs file and rename it to [ProjectName]Server.Target.cs
+   3. Using a text editor (don't try regenerating until the next step), edit the [ProjectName].ServerTarget.cs:
        * change the Type from TargetType.Game to TargetType.Server 
        * change the name of the class to match the name of the new file. i.e.:
       
