@@ -70,7 +70,7 @@ We want our UE project to support:
    1. Create an empty widget blueprint called WBP_OfflineMainMenu.  
    * UE will ask for the root widget:  use **OfflineMainMenuWidget** as the root widget
    3. In the Offline Map, edit the level blueprint to add two nodes onto BeginPlay to create the widget and add it to the viewport:
-      ![Add Widget to Viewport](images/create_menu_and_add_to_viewport.png)
+      ![Add Widget to Viewport](/images/create_menu_and_add_to_viewport.png)
    3. Create a Hierarchy with Canvas Panel; VerticalBox; TextBlock; UsernameEditableText; TextBlock; GameLiftLoginButton; LocalLoginButton
    4. Set the Vertical Box anchor point to the bottom right and set Position X to -250 and Position Y to -250
    5. Update the labels to read Username, Password.  Add Text children to the buttons to read "Login To GameLift" and "Login to Localhost"
