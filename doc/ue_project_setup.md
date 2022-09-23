@@ -4,11 +4,11 @@ We want our UE project to support:
 
 ## Steps:
 1. **Add the GameLiftServerSDK Plugin.** For your game server to be able to talk to the GameLift servers it needs to link against the GameLiftServerSDK that is packaged in the plugin: 
-   1. Copy the GameLiftServerSDK folder from this repo to the Plugins folder of your game project.
-   2. Reopen your project in the Unreal Editor and enable the "GameLiftServerSDK" in the Plugins.
+   1. Copy the Plugins folder from assets/SkeletonProject from this repo to the Plugins folder of your game project.  The Plugins folder should be at the same level as your [ProjectName].sln
+   2. Reopen your project in the Unreal Editor, Open Edit/Plugins and enable the "GameLiftServerSDK".
    3. Unreal Editor will prompt you to restart.
-   4. If you see a dialog box to ask to rebuild missing modules, select yes.
-   5. Once Unreal Editor finishes restarting, look in the Output Log and you will see "LogPluginManager: Mounting Project plugin GameLiftServerSDK"
+   4. If you see a dialog box to ask to rebuild missing modules, select Yes.
+   5. In a few seconds Unreal Editor will finished restarting, you should now see in the Plugins Window that the GameLiftServerSDK is marked as enabled.
 
 2. **Add Game Modes and Widget C++ classes.**  Your game needs to be able to support the different logic when offline vs online.  To do this we add a couple game modes and a widget:
    1. Exit Unreal Editor
