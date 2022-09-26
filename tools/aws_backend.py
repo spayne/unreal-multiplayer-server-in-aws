@@ -170,6 +170,7 @@ def create_lambda_role(
         assume_role_policy,
         other_policy_name,
         other_policy):
+    '''returns role_arn'''
     try:
         response = iam_client.get_role(RoleName=role_name)
         role_arn = response["Role"]["Arn"]
@@ -209,21 +210,33 @@ def create_lambda(
     zipped_code = zip_buffer.getvalue()
 
     log_info(f"creating {function_name} lambda")
-    create_function_response = lambda_client.create_function(
-        FunctionName=function_name,
-        Runtime="python3.9",
-        Publish=True,
-        PackageType="Zip",
-        Role=role_arn,
-        Code=dict(ZipFile=zipped_code),
-        Handler="handler.lambda_handler"
-    )
+
+    for create_attempt in range(3):
+        try: 
+            create_function_response = lambda_client.create_function(
+                FunctionName=function_name,
+                Runtime="python3.9",
+                Publish=True,
+                PackageType="Zip",
+                Role=role_arn,
+                Code=dict(ZipFile=zipped_code),
+                Handler="handler.lambda_handler"
+            )
+        except ClientError:
+            print(f"create attempt {create_attempt} failed - perhaps role is too new - sleeping and trying again")
+            time.sleep(1)
+            
+
     log_info(f"create_function_response {create_function_response}")
 
 
+#
+# create the login and session lambdas. This includes setting up corresponding
+# roles that can execute lambdas.  
+#
 def create_lambdas(build_config):
 
-    lambda_policy = {
+    can_execute_lambda_policy = {
         "Version": "2012-10-17",
         "Statement": [
             {
@@ -238,7 +251,7 @@ def create_lambdas(build_config):
     # ref:
     # https://github.com/aws-samples/amazon-gamelift-unreal-engine/blob/main/lambda/GameLiftUnreal-StartGameLiftSession.json
 
-    gamelift_session_policy = {
+    can_gamelift_session_control_policy = {
         "Version": "2012-10-17",
         "Statement": [
             {
@@ -258,7 +271,7 @@ def create_lambdas(build_config):
         ]
     }
 
-    cognito_auth = {
+    can_cognito_auth_policy = {
         "Version": "2012-10-17",
         "Statement": [
             {
@@ -270,24 +283,31 @@ def create_lambdas(build_config):
         ]
     }
 
-    # todo: session_role =
-    # create_lambda_role(build_config["lambda_session_role"], lambda_policy,
-    session_role = create_lambda_role(
-        "gl_session_lambda_role",
-        lambda_policy,
-        "gl_session_policy",
-        gamelift_session_policy)
-    # todo: debug this login_role =
-    # create_lambda_role(build_config["lambda_cognito_role"], lambda_policy,
-    login_role = create_lambda_role("gl_cognito_lambda_role", lambda_policy,
-                                    "cognito_auth", cognito_auth)
 
+
+    # setup the session role: able to lambda and able to session control
+    session_role_arn = create_lambda_role(
+        build_config["lambda_start_session_role_name"],
+        can_execute_lambda_policy,
+        build_config["lambda_start_session_other_policy_name"],
+        can_gamelift_session_control_policy)
+
+    # setup the login role: able to lambda and able to authenticate
+    login_role_arn = create_lambda_role(
+        build_config["lambda_login_role_name"],   # role name
+        can_execute_lambda_policy, # general policy
+        build_config["lambda_login_other_policy_name"], # other policy name - the policy that lets the work happen
+        can_cognito_auth_policy)
+
+    # look up the fleet ID.  This is because it needs to go into 
+    # the StartGameLiftSession.py file.  
+    # Consider moving this somewhere with less suspicious string substitutions
     fleet_id = lookup_fleet_id(build_config["fleet_name"])
     log_info("got fleet_id" + fleet_id)
 
     create_lambda(
-        build_config["lambda_start_session_name"],
-        session_role,
+        build_config["lambda_start_session_function_name"],
+        session_role_arn,
         "GameLiftUnreal-StartGameLiftSession.py",
         'GAMELIFT_FLEET_ID = ""',
         "GAMELIFT_FLEET_ID = \"" + fleet_id + "\"")
@@ -297,8 +317,8 @@ def create_lambdas(build_config):
         build_config["user_pool_login_client_name"])
 
     create_lambda(
-        build_config["lambda_login_name"],
-        login_role,
+        build_config["lambda_login_function_name"],
+        login_role_arn,
         "GameLiftUnreal-CognitoLogin.py",
         "USER_POOL_APP_CLIENT_ID = ''",
         "USER_POOL_APP_CLIENT_ID = \"" +
@@ -355,7 +375,7 @@ def lookup_cognito_pool_client_id(pool_name, client_name):
     return None
 
 
-def lookup_lambda_arn(lambda_name):
+def lookup_lambda_function_arn(lambda_name):
     try:
         get_function_resp = lambda_client.get_function(
             FunctionName=lambda_name)
@@ -487,8 +507,8 @@ def create_rest_resource(
 
 def create_login_resource(rest_api_id, build_config, authorizer_id):
     account_id = boto3.client("sts").get_caller_identity()["Account"]
-    lambda_name = build_config["lambda_login_name"]
-    lambda_arn = lookup_lambda_arn(lambda_name)
+    lambda_name = build_config["lambda_login_role_name"]
+    lambda_arn = lookup_lambda_function_arn(lambda_name)
 
     create_rest_resource(
         rest_api_id,
@@ -500,11 +520,11 @@ def create_login_resource(rest_api_id, build_config, authorizer_id):
         lambda_arn,
         authorizer_id)
 
-
+# the gateway resource to invoke the session labmda
 def create_start_session_resource(rest_api_id, build_config, authorizer_id):
     account_id = boto3.client("sts").get_caller_identity()["Account"]
-    lambda_name = build_config["lambda_start_session_name"]
-    lambda_arn = lookup_lambda_arn(lambda_name)
+    lambda_name = build_config["lambda_start_session_function_name"]
+    lambda_arn = lookup_lambda_function_arn(lambda_name)
 
     create_rest_resource(
         rest_api_id,
@@ -722,12 +742,13 @@ def delete_user_pool(build_config):
 
 def delete_lambdas(build_config):
     log_info("deleting lambdas")
-    start_session_arn = lookup_lambda_arn(
-        build_config["lambda_start_session_name"])
+    start_session_arn = lookup_lambda_function_arn(
+        build_config["lambda_start_session_function_name"])
     if start_session_arn:
         lambda_client.delete_function(FunctionName=start_session_arn)
 
-    login_arn = lookup_lambda_arn(build_config["lambda_login_name"])
+    login_arn = lookup_lambda_function_arn(
+        build_config["lambda_login_function_name"])
     if login_arn:
         lambda_client.delete_function(FunctionName=login_arn)
 
@@ -876,23 +897,32 @@ override default example:
         '--user_pool_subdomain_prefix',
         default="[prefix]-login",
         help="name the subdomain")
+    
+    parser.add_argument(
+        '--lambda_login_function_name',
+        default="[prefix]-lambda-login-function",
+        help="name of the login lamda function")
+    parser.add_argument(
+        '--lambda_login_role_name',
+        default="[prefix]-lambda-login-role",
+        help="name of the role used by the login lamda")
+    parser.add_argument(
+        '--lambda_login_other_policy_name',
+        default="[prefix]-lambda-login-other-policy-name",
+        help="name of specific policies that lets login work (i.e. cognito policies)")
 
     parser.add_argument(
-        '--lambda_start_session_name',
-        default="[prefix]-lambda-start-session",
-        help="name the lambda")
+        '--lambda_start_session_function_name',
+        default="[prefix]-lambda-start-session-function",
+        help="name of the start-session lambda function")
     parser.add_argument(
-        '--lambda_login_name',
-        default="[prefix]-lambda-login",
-        help="name the lambda")
+        '--lambda_start_session_role_name',
+        default="[prefix]-lambda-start-session-role",
+        help="name of the role used by the start-session lambda")
     parser.add_argument(
-        '--lambda_session_role',
-        default="[prefix]-lambda-session-role",
-        help="name the role")
-    parser.add_argument(
-        '--lambda_cognito_role',
-        default="[prefix]-lambda-cognito-role",
-        help="name the role")
+        '--lambda_start_session_other_policy_name',
+        default="[prefix]-lambda-start-session-other-policy-name",
+        help="name of specific policies that lets start-session work (i.e. gamelift policies)")
 
     parser.add_argument(
         '--rest_api_name',
