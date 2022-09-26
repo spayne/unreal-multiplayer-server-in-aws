@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import sys
 import argparse
 import time
 import logging
@@ -173,7 +174,8 @@ def create_lambda_role(
         response = iam_client.get_role(RoleName=role_name)
         role_arn = response["Role"]["Arn"]
         log_info('role already exists arn ' + role_arn)
-    except BaseException:
+    except ClientError:
+        log_info('role does not exit: creating')
         response = iam_client.create_role(
             RoleName=role_name,
             AssumeRolePolicyDocument=json.dumps(assume_role_policy))
@@ -359,7 +361,7 @@ def lookup_lambda_arn(lambda_name):
             FunctionName=lambda_name)
         lambda_arn = get_function_resp["Configuration"]["FunctionArn"]
         return lambda_arn
-    except BaseException:
+    except ClientError:
         return None
 
 
@@ -777,6 +779,7 @@ def process_delete_commands(commands, build_config):
 
 
 def process_build_config(build_config):
+    print(f'ga {build_config}')
     if len(build_config["commands"]) > 0:
         log_info(f'Using profile: {build_config["profile"]}')
         global_setup(build_config["profile"], build_config["region"])
@@ -797,13 +800,36 @@ def process_build_config(build_config):
                 process_create_commands(sub_commands, build_config)
             case "delete":
                 process_delete_commands(sub_commands, build_config)
+            case other:
+                log_info(f"unrecognized_command: {create_or_delete_command}")
 
 
-def parse_args():
+class Formatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescriptionHelpFormatter):
+    pass
+
+
+def parse_args(argv):
     '''return a build_config'''
+
+    example_text = '''create examples:
+       python aws_backend.py create build
+       python aws_backend.py create fleet
+       python aws_backend.py create user_pool
+       python aws_backend.py create lambdas
+       python aws_backend.py create rest_api
+
+delete examples:
+       python aws_backend.py delete build
+       python aws_backend.py delete all
+
+override default example:
+       python aws_backend.py --prefix=potato --build_root=E:/unreal_projects/ue5_gamelift_plugin_test/MyProject/ServerBuild/WindowsServer -- fleet_launch_path=C:/game/MyProject/Binaries/Win64/MyProjectServer.exe --profile=dave --region=us-west-2
+       '''
+
     parser = argparse.ArgumentParser(
         description='Configure AWS Services to provide login, session and server management for dedicated UE servers',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        epilog=example_text,
+        formatter_class=Formatter)
     parser.add_argument('commands', nargs='*')
     parser.add_argument('--prefix', default="test1", help="prefix used below")
 
@@ -836,7 +862,7 @@ def parse_args():
     parser.add_argument(
         '--fleet_ec2_instance_type',
         default="c5.large",
-        help="what kind of EC2s to allocate.")
+        help="what kind of EC2s to allocate.  Currently c5.large, c4.large and c3.large qualify for the GameLift free tier")
 
     parser.add_argument(
         '--user_pool_name',
@@ -895,7 +921,7 @@ def parse_args():
         help="AWS credentials to use")
     parser.add_argument('--region', default='us-west-2', help='AWS region')
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     build_config = vars(args)
 
@@ -912,11 +938,14 @@ def parse_args():
     return build_config
 
 
-if __name__ == '__main__':
+def run_main(argv):
     logging.basicConfig(
         level=logging.INFO,
-        format=f'%(asctime)s %(levelname)s %(message)s'
+        format='%(asctime)s %(levelname)s %(message)s'
     )
+    build_config = parse_args(argv)
+    process_build_config(build_config)
 
-build_config = parse_args()
-process_build_config(build_config)
+
+if __name__ == '__main__':
+    run_main(sys.argv[1:])
