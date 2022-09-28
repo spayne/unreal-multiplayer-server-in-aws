@@ -19,7 +19,9 @@ We want to:
                 "iam:GetRole",
                 "iam:PassRole",
                 "iam:PutRolePolicy",
+                "iam:DeleteRolePolicy",
                 "iam:CreateRole",
+                "iam:DeleteRole",
                 "lambda:*"
             ],
             "Resource": "*"
