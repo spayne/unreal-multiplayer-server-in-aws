@@ -1,6 +1,6 @@
 ## How to deploy Unreal Engine multiplayer servers using AWS GameLift
 
-This project provides [instructions](#instructions), supporting [tools](tools) and [assets](assets) to take to your Unreal Engine 5 project and deploy it to the AWS GameLift service.
+This project provides [instructions](#instructions), supporting [tools](tools) and [assets](assets) to take to your Unreal Engine 5 project and deploy it to the AWS GameLift service.  If you are interested in an integrated GUI, checkout the [GameLiftStarterPlugin](https://github.com/spayne/GameLiftStarterPlugin).
 
 **Tested Configuration:** Unreal Engine 5.0.3 and GameLift Server SDK Release 4.0.2.
 
