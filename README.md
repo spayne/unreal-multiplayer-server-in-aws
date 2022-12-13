@@ -18,9 +18,6 @@ Follow the instructions on each of the sub-pages:
 5. [Test and Teardown](doc/test_and_teardown.md)
 
 
-## Contact
-sean.d.payne@gmail.com
-
 [^ue_server_req]: https://docs.unrealengine.com/5.0/en-US/setting-up-dedicated-servers-in-unreal-engine/#1.requiredsetup
 [^ue_setup_dedicated_server]: [Unreal Engine 5.0 Documentation: Setting Up Dedicated Servers](https://docs.unrealengine.com/5.0/en-US/setting-up-dedicated-servers-in-unreal-engine/)
 [^aws_gamelift_episode_1]: [Amazon GameLift-UE4 Episode 1: Intro and Architecture Review](https://youtu.be/3_iBuko39JA)
